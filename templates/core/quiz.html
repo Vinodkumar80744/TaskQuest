@@ -1,0 +1,40 @@
+{% extends 'core/base.html' %}
+{% block content %}
+<div class="quiz-page-container">
+    <div class="quiz-card">
+        <h2 class="quiz-title">⚔️ {{ task.title }}</h2>
+        
+        <form method="post">
+            {% csrf_token %}
+            {% for q in questions %}
+                <div class="question-wrapper">
+                    <p class="question-text"><strong>{{ forloop.counter }}.</strong> {{ q.question_text }}</p>
+                    
+                    <div class="options-list">
+                        <label class="option-row">
+                            <input type="radio" name="q{{ q.id }}" value="1" required>
+                            <span class="option-content">{{ q.option1 }}</span>
+                        </label>
+                        
+                        <label class="option-row">
+                            <input type="radio" name="q{{ q.id }}" value="2">
+                            <span class="option-content">{{ q.option2 }}</span>
+                        </label>
+                        
+                        <label class="option-row">
+                            <input type="radio" name="q{{ q.id }}" value="3">
+                            <span class="option-content">{{ q.option3 }}</span>
+                        </label>
+                        
+                        <label class="option-row">
+                            <input type="radio" name="q{{ q.id }}" value="4">
+                            <span class="option-content">{{ q.option4 }}</span>
+                        </label>
+                    </div>
+                </div>
+            {% endfor %}
+            <button type="submit" class="quiz-submit-btn">Complete Quest</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

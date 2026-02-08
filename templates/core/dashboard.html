@@ -1,0 +1,72 @@
+
+{% extends 'core/base.html' %}
+{% block content %}
+
+<div class="dashboard-wrapper">
+
+  <!--PROGRESS OVERVIEW CARD -->
+<section class="progress-overview">
+
+    <div class="progress-left">
+        <!-- <h2>Your Learning Journey</h2> -->
+        <p>Keep going! You're doing great</p>
+
+        <div class="progress-track">
+            <div class="progress-glow" style="width: {{ progress_percent }}%;"></div>
+        </div>
+    </div>
+
+    <div class="progress-right">
+        <div class="progress-circle">
+            {{ progress_percent }}%
+        </div>
+        <span>Completed</span>
+    </div>
+
+</section>
+
+
+    <!--PENDING TASKS -->
+    <section class="task-section">
+        <h2 class="section-title"><span class="icon">🟡</span> Pending Tasks</h2>
+        <div class="task-grid">
+            {% for task in pending_tasks %}
+            <div class="task-card pending">
+                <div class="task-header">
+                    <h3>{{ task.title }}</h3>
+                    <span class="badge points-badge">⭐ {{ task.points }} pts</span>
+                </div>
+                <p class="task-desc">{{ task.description }}</p>
+                <div class="task-footer">
+                    <span class="due-date">📅 {{ task.due_date }}</span>
+                    <a href="{% url 'quiz' task.id %}" class="action-btn">Start Quiz</a>
+                </div>
+            </div>
+            {% empty %}
+            <div class="empty-state">
+                <p>No quests active right now. Rest up, traveler!</p>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+
+    <!-- ✅ COMPLETED TASKS -->
+    <section class="task-section">
+        <h2 class="section-title"><span class="icon">✅</span> Completed Tasks</h2>
+        <div class="task-grid">
+            {% for task in completed_tasks %}
+            <div class="task-card completed">
+                <div class="task-header">
+                    <h3>{{ task.title }}</h3>
+                    <span class="badge status-badge">Finished</span>
+                </div>
+            </div>
+            {% empty %}
+            <p class="empty-text">Your trophy cabinet is empty.</p>
+            {% endfor %}
+        </div>
+    </section>
+
+</div>
+
+{% endblock %}

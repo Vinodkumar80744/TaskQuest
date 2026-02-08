@@ -1,0 +1,30 @@
+{% extends 'core/base.html' %}
+{% block content %}
+
+<div class="profile-container">
+
+    <h2>Your Profile</h2>
+
+    {% if not profile_filled or edit_mode %}
+        <!-- SHOW FORM -->
+        <form method="post" class="profile-form">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Save Details</button>
+        </form>
+
+    {% else %}
+        <!-- SHOW SAVED DATA -->
+        <div class="profile-details">
+            <p><strong>DOB:</strong> {{ profile.date_of_birth }}</p>
+            <p><strong>Phone:</strong> {{ profile.phone }}</p>
+            <p><strong>Institution:</strong> {{ profile.institution }}</p>
+            <p><strong>Bio:</strong> {{ profile.bio }}</p>
+        </div>
+
+        <a href="?edit=true" class="edit-btn">Edit Profile</a>
+    {% endif %}
+
+</div>
+
+{% endblock %}

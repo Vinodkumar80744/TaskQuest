@@ -1,0 +1,31 @@
+{% extends 'core/base.html' %}
+{% block content %}
+
+<div class="leaderboard-wrapper">
+    <div class="leaderboard-card">
+        <h2 class="leaderboard-header">🏆 Hall of Fame</h2>
+
+        <table class="leaderboard-table">
+            <thead>
+                <tr>
+                    <th>Rank</th>
+                    <th>Hero</th>
+                    <th>Score</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for profile in top_users %}
+                <tr class="rank-row {% if forloop.counter == 1 %}gold{% elif forloop.counter == 2 %}silver{% elif forloop.counter == 3 %}bronze{% endif %}">
+                    <td class="rank-number">
+                        {% if forloop.counter == 1 %}👑{% else %}{{ forloop.counter }}{% endif %}
+                    </td>
+                    <td class="user-name">{{ profile.user.username }}</td>
+                    <td class="user-points">⭐ {{ profile.points }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% endblock %}
